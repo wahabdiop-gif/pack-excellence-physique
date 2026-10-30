@@ -151,7 +151,7 @@ elif page == "Sujet et repères":
             """
         )
     with st.expander("Partie 4 — Mesures et incertitudes"):
-        st.dataframe(MEASUREMENTS, hide_index=True, use_container_width=True)
+        st.dataframe(MEASUREMENTS, hide_index=True, width="stretch")
         st.markdown(
             "4.1 Estimer graphiquement fᵣ,exp et Im,max,exp. 4.2 Comparer aux valeurs "
             "théoriques et calculer les écarts relatifs. 4.3 Pour u(Im) = 1,5 mA, "
