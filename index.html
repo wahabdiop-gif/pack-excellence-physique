@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#102a43">
+    <meta name="description" content="Réviser la physique-chimie avec des exemples du Sénégal, des calculateurs et des quiz, même hors ligne.">
+    <title>SunuLabo PC — Physique-Chimie au Sénégal</title>
+    <link rel="icon" href="./icon.svg" type="image/svg+xml">
+    <link rel="manifest" href="./manifest.webmanifest">
+    <link rel="stylesheet" href="./app.css">
+    <script src="./app.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#contenu">Aller au contenu</a>
+    <header class="topbar">
+      <a class="brand" href="#accueil" aria-label="SunuLabo PC, accueil">
+        <span class="brand-mark" aria-hidden="true">S</span>
+        <span><strong>SunuLabo</strong><small>PHYSIQUE · CHIMIE</small></span>
+      </a>
+      <nav class="main-nav" aria-label="Navigation principale">
+        <a href="#parcours">Parcours</a>
+        <a href="#labo">Labo</a>
+        <a href="#quiz">Quiz</a>
+      </nav>
+      <span id="connection-state" class="connection-pill"><i></i> Vérification…</span>
+    </header>
+
+    <main id="contenu">
+      <section id="accueil" class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow"><span></span> APPRENDRE DEPUIS LE SÉNÉGAL</p>
+          <h1>Les sciences prennent vie <em>autour de vous.</em></h1>
+          <p class="hero-lede">Des expériences, des calculateurs et des quiz de physique-chimie, conçus pour réviser sur téléphone — même sans connexion après le premier chargement.</p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#parcours">Choisir un parcours <span aria-hidden="true">↘</span></a>
+            <button id="install-button" class="button button-quiet" hidden>Installer l’application</button>
+          </div>
+          <p class="privacy-note"><span aria-hidden="true">●</span> Votre progression reste enregistrée sur cet appareil.</p>
+        </div>
+        <div class="hero-art" aria-label="Illustration d'une lampe solaire et d'un circuit électrique">
+          <div class="sun-disc"></div>
+          <div class="sun-ray ray-one"></div><div class="sun-ray ray-two"></div><div class="sun-ray ray-three"></div>
+          <div class="solar-panel"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+          <div class="wire wire-a"></div><div class="wire wire-b"></div>
+          <div class="bulb"><div class="bulb-glass"></div><div class="bulb-base"></div></div>
+          <div class="art-label label-top">ÉNERGIE</div><div class="art-label label-bottom">CURIOSITÉ</div>
+          <div class="orbit-dot dot-a"></div><div class="orbit-dot dot-b"></div>
+        </div>
+      </section>
+
+      <section class="context-strip" aria-label="Exemples étudiés">
+        <span class="context-title">La science dans nos vies</span>
+        <span><b>01</b> Énergie solaire</span>
+        <span><b>02</b> Eau et salinité</span>
+        <span><b>03</b> Conservation du poisson</span>
+      </section>
+
+      <section id="parcours" class="section-block">
+        <div class="section-heading">
+          <div><p class="eyebrow">APPRENDRE À SON RYTHME</p><h2>Choisissez votre parcours</h2></div>
+          <label class="select-wrap">Niveau
+            <select id="level-filter" aria-label="Filtrer par niveau">
+              <option value="Tous">Tous les niveaux</option>
+              <option value="Seconde">Seconde</option>
+              <option value="Première">Première</option>
+              <option value="Terminale">Terminale</option>
+            </select>
+          </label>
+        </div>
+        <div id="chapter-grid" class="chapter-grid" aria-live="polite"></div>
+        <p class="section-footnote">Les parcours sont des supports de révision. Vérifiez les notions avec le programme et les cours de votre établissement.</p>
+      </section>
+
+      <section id="labo" class="lab-section">
+        <div class="section-heading lab-heading">
+          <div><p class="eyebrow">EXPÉRIMENTER ET CALCULER</p><h2>Le labo de poche</h2></div>
+          <p>Modifiez les valeurs et observez les résultats en direct.</p>
+        </div>
+        <div class="calculator-grid">
+          <article class="calc-card calc-featured">
+            <div class="calc-topline"><span class="calc-icon icon-solar">☼</span><span class="calc-tag">ÉNERGIE</span></div>
+            <h3>Une journée au solaire</h3>
+            <p>Estimez l’énergie produite par un panneau. L’ensoleillement est une hypothèse à adapter à votre situation.</p>
+            <div class="input-row">
+              <label>Puissance du panneau <span>W</span><input id="solar-power" type="number" min="1" max="2000" value="100"></label>
+              <label>Heures de soleil <span>h</span><input id="solar-hours" type="number" min="0" max="24" step="0.5" value="5"></label>
+            </div>
+            <label class="range-label" for="solar-efficiency">Rendement estimé <output id="solar-efficiency-value">80 %</output></label>
+            <input id="solar-efficiency" class="range-input" type="range" min="20" max="100" value="80">
+            <div class="calc-result"><span>Énergie estimée par jour</span><strong id="solar-result">400 Wh</strong></div>
+          </article>
+
+          <article class="calc-card">
+            <div class="calc-topline"><span class="calc-icon icon-circuit">⌁</span><span class="calc-tag">ÉLECTRICITÉ</span></div>
+            <h3>Résonance d’un circuit RLC</h3>
+            <p>Calculez la fréquence propre d’un circuit série avec les valeurs de votre exercice.</p>
+            <div class="input-row three-inputs">
+              <label>Inductance <span>mH</span><input id="rlc-l" type="number" min="0.1" step="0.1" value="25"></label>
+              <label>Capacité <span>nF</span><input id="rlc-c" type="number" min="1" step="1" value="100"></label>
+              <label>R totale <span>Ω</span><input id="rlc-r" type="number" min="0.1" step="0.1" value="50"></label>
+            </div>
+            <div class="calc-result"><span>Fréquence propre f₀</span><strong id="rlc-result">3 183 Hz</strong></div>
+            <div class="calc-subresult"><span>Facteur de qualité Q</span><strong id="rlc-q-result">10,0</strong></div>
+          </article>
+
+          <article class="calc-card">
+            <div class="calc-topline"><span class="calc-icon icon-chem">◌</span><span class="calc-tag">CHIMIE</span></div>
+            <h3>Diluer une solution</h3>
+            <p>Utilisez la relation de dilution C₁V₁ = C₂V₂ pour préparer une solution moins concentrée.</p>
+            <div class="input-row three-inputs">
+              <label>C₁ <span>mol·L⁻¹</span><input id="dilution-c1" type="number" min="0" step="0.01" value="0.5"></label>
+              <label>V₁ <span>mL</span><input id="dilution-v1" type="number" min="0" step="1" value="20"></label>
+              <label>V₂ <span>mL</span><input id="dilution-v2" type="number" min="0.1" step="1" value="100"></label>
+            </div>
+            <div class="calc-result"><span>Concentration finale C₂</span><strong id="dilution-result">0,100 mol·L⁻¹</strong></div>
+            <p class="safety-note">Au laboratoire, suivez toujours les consignes de votre enseignant.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="quiz" class="quiz-section">
+        <div class="quiz-intro">
+          <p class="eyebrow">PETIT DÉFI</p><h2>Vous avez 2 minutes ?</h2>
+          <p>Répondez à cinq questions et révisez les notions essentielles.</p>
+          <div class="best-score">Meilleur score <strong id="best-score">—</strong></div>
+        </div>
+        <form id="quiz-form" class="quiz-card">
+          <div id="quiz-questions"></div>
+          <div class="quiz-actions"><button type="submit" class="button button-primary">Corriger le quiz <span aria-hidden="true">→</span></button><p id="quiz-result" aria-live="polite"></p></div>
+        </form>
+      </section>
+
+      <section class="offline-banner">
+        <div class="offline-symbol" aria-hidden="true">↯</div>
+        <div><h2>Prêt pour le hors-ligne</h2><p>Ouvrez l’application une première fois avec Internet. Ensuite, revenez-y depuis le même navigateur, même si la connexion est faible ou absente.</p></div>
+        <span id="offline-ready" class="ready-badge">Cache en préparation</span>
+      </section>
+    </main>
+
+    <footer class="footer"><a class="brand footer-brand" href="#accueil"><span class="brand-mark" aria-hidden="true">S</span><span><strong>SunuLabo</strong><small>PHYSIQUE · CHIMIE</small></span></a><p>Un outil de révision pédagogique · Fait pour apprendre partout.</p><a href="#accueil" class="back-top">Retour en haut ↑</a></footer>
+    <dialog id="chapter-dialog" class="chapter-dialog" aria-labelledby="dialog-title"><button id="dialog-close" class="dialog-close" aria-label="Fermer">×</button><p id="dialog-level" class="eyebrow"></p><h2 id="dialog-title"></h2><p id="dialog-description"></p><div class="dialog-example"><span>À retenir</span><p id="dialog-tip"></p></div><button id="mark-complete" class="button button-primary">Marquer comme révisé <span aria-hidden="true">✓</span></button></dialog>
+  </body>
+</html>
